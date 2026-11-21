@@ -1,0 +1,56 @@
+.offline-uk-dictionary {
+  --ouk-gap: 16px;
+  padding: 20px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  overflow: hidden;
+  color: var(--text-normal);
+  font-family: var(--font-interface);
+}
+.ouk-heading, .ouk-entry-heading, .ouk-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.ouk-title { margin: 0; font-size: 23px; font-weight: 650; letter-spacing: -.6px; }
+.ouk-language { margin-top: 4px; color: var(--text-muted); font-size: 10px; letter-spacing: 1.5px; font-weight: 600; }
+.ouk-offline { padding: 4px 9px; border: 1px solid var(--background-modifier-border); border-radius: 20px; font-size: 11px; white-space: nowrap; color: var(--text-success, var(--text-muted)); }
+.ouk-offline::before { content: ''; display: inline-block; width: 5px; height: 5px; margin-right: 5px; border-radius: 50%; background: currentColor; vertical-align: 1px; }
+.ouk-search { display: flex; gap: 7px; margin: 8px 0 0; }
+.ouk-search-input { flex: 1; min-width: 0; height: 36px; width: 100%; }
+.ouk-search-button { height: 36px; padding: 0 11px; flex-shrink: 0; }
+.ouk-private-note { color: var(--text-faint); font-size: 10px; line-height: 1.5; }
+.ouk-text-button { border: 0; box-shadow: none; background: transparent; font-size: 11px; padding: 2px; color: var(--text-muted); }
+.ouk-status { min-height: 17px; font-size: 11px; color: var(--text-muted); line-height: 1.5; }
+.ouk-results { flex: 1; min-height: 0; overflow-y: auto; padding-right: 5px; scrollbar-gutter: stable; outline-offset: 2px; }
+.ouk-results:focus:not(:focus-visible) { outline: none; }
+.ouk-empty { padding: 40px 6px 24px; text-align: center; color: var(--text-muted); }
+.ouk-empty-symbol { font-family: var(--font-text); font-size: 52px; color: var(--text-faint); letter-spacing: -5px; }
+.ouk-empty h3 { font-size: 16px; color: var(--text-normal); margin: 15px 0 8px; }
+.ouk-empty p { font-size: 12px; line-height: 1.7; margin: 8px 0; }
+.ouk-empty .ouk-coverage { font-size: 10px; color: var(--text-faint); margin-top: 20px; }
+.ouk-entry { padding: 5px 0 15px; }
+.ouk-entry + .ouk-entry { border-top: 1px solid var(--background-modifier-border); padding-top: 20px; }
+.ouk-headword { font-family: var(--font-text); font-size: 25px; letter-spacing: -.5px; line-height: 1.25; overflow-wrap: anywhere; margin: 0; }
+.ouk-pos { font-size: 11px; color: var(--text-muted); font-style: italic; white-space: nowrap; }
+.ouk-ipa { margin: 9px 0 14px; color: var(--text-muted); font-size: 13px; }
+.ouk-lemma, .ouk-variants { font-size: 11px; color: var(--text-muted); line-height: 1.7; margin: 8px 0; }
+.ouk-senses { padding-left: 23px; margin: 18px 0 0; }
+.ouk-sense { padding-left: 4px; margin-bottom: 18px; }
+.ouk-sense::marker { color: var(--text-faint); font-size: 11px; }
+.ouk-definition { font-size: 14px; line-height: 1.6; margin: 0 0 7px; }
+.ouk-example { font-size: 12px; line-height: 1.6; font-style: italic; color: var(--text-muted); margin: 5px 0; }
+.ouk-synonyms, .ouk-suggestions { display: flex; flex-wrap: wrap; gap: 5px; align-items: baseline; margin-top: 9px; }
+.ouk-synonym-label { font-size: 10px; color: var(--text-faint); }
+.ouk-word-button { font-size: 11px; color: var(--text-accent); background: var(--background-secondary); padding: 3px 7px; border: 1px solid var(--background-modifier-border); border-radius: 5px; box-shadow: none; height: auto; line-height: 1.4; max-width: 100%; white-space: normal; text-align: left; }
+.ouk-word-button:hover { background: var(--background-modifier-hover); }
+.ouk-not-found { font-size: 13px; line-height: 1.6; color: var(--text-muted); }
+.ouk-suggestions-title { font-size: 13px; margin-top: 24px; }
+.ouk-credits { border-top: 1px solid var(--background-modifier-border); padding-top: 10px; color: var(--text-faint); font-size: 10px; flex-shrink: 0; max-height: 35%; overflow: auto; line-height: 1.6; }
+.ouk-credits summary { cursor: pointer; color: var(--text-muted); }
+.ouk-credits p { overflow-wrap: anywhere; }
+.ouk-full-licences pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 10px; }
+@media (prefers-reduced-motion: reduce) { .offline-uk-dictionary * { scroll-behavior: auto; } }

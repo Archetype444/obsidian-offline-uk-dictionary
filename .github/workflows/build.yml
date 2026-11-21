@@ -1,0 +1,75 @@
+name: Verify and package
+
+on:
+  push:
+    branches: [main]
+    tags: ['*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+      - run: npm run verify
+      - run: python3 scripts/package.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: plugin-install-files
+          path: |
+            dist/main.js
+            dist/manifest.json
+            dist/styles.css
+            dist/SHA256SUMS.txt
+            artifacts/*.zip
+            artifacts/*.sha256
+          if-no-files-found: error
+
+  browser-fixture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '24'
+      - run: npm run build
+      - name: Prepare isolated browser-test environment
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ouk-browser" --ignore-scripts --no-audit --no-fund playwright@1.62.1
+          node "$RUNNER_TEMP/ouk-browser/node_modules/playwright/cli.js" install --with-deps chromium
+      - name: Exercise real DOM selection and sidebar fixture
+        run: node tests/browser-integration.cjs
+        env:
+          OUK_PLAYWRIGHT_MODULE: ${{ runner.temp }}/ouk-browser/node_modules/playwright
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: browser-fixture-screenshots
+          path: test-results/*.png
+          if-no-files-found: ignore
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: [verify, browser-fixture]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: plugin-install-files
+      - name: Check release version and publish install files
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          node -e 'if(require("./dist/manifest.json").version !== process.env.RELEASE_TAG) process.exit(1)'
+          gh release create "$RELEASE_TAG" dist/main.js dist/manifest.json dist/styles.css dist/SHA256SUMS.txt artifacts/*.zip artifacts/*.sha256 --verify-tag --title "Offline UK Dictionary $RELEASE_TAG" --notes "Bundled offline dictionary for Obsidian. See the README, PRIVACY.md and TESTING.md for coverage, privacy behaviour and validation scope."

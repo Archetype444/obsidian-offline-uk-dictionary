@@ -1,0 +1,17 @@
+{
+  "schema": 1,
+  "name": "Open English Wordnet with an original function-word supplement",
+  "sourceCommit": "9b6aca775ae10ad3d2dc9956e8ad42a4ce1e076b",
+  "sourceRepository": "https://github.com/globalwordnet/english-wordnet",
+  "sourceVersion": "Pinned source snapshot, 21 November 2026",
+  "locale": "en-GB",
+  "headwords": 127436,
+  "lexicalEntries": 136128,
+  "synsets": 107535,
+  "supplementEntries": 110,
+  "licences": [
+    "CC-BY-4.0",
+    "Princeton-WordNet",
+    "MIT (function-word supplement)"
+  ]
+}

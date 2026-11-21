@@ -1,0 +1,14 @@
+{
+  "name": "obsidian-offline-uk-dictionary",
+  "version": "1.0.0",
+  "description": "A private, bundled English (UK) dictionary for selectable text in Obsidian.",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "node --test tests/*.test.js",
+    "check": "node scripts/privacy-check.js",
+    "verify": "npm test && npm run check && npm run build"
+  },
+  "engines": {"node": ">=20"}
+}

@@ -1,0 +1,9 @@
+{
+  "id": "offline-uk-dictionary",
+  "name": "Offline UK Dictionary",
+  "version": "1.0.0",
+  "minAppVersion": "1.8.7",
+  "description": "Look up selected text in a bundled, private English (UK) dictionary in the right sidebar.",
+  "author": "Archetype444",
+  "isDesktopOnly": false
+}
