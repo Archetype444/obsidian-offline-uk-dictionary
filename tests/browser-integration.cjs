@@ -37,6 +37,7 @@ async function main() {
     page.on('request', request => {if (!request.url().endsWith('/favicon.ico')) requests.push(request.url());});
     const base = `http://127.0.0.1:${server.address().port}`;
     await page.goto(base);
+    assert.deepEqual(errors, [], 'The fixture must start without script errors');
     await page.waitForFunction(() => window.fixtureReady === true);
     const baseline = requests.length;
 

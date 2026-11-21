@@ -1,5 +1,6 @@
 /* Test host only. Not included in the installable plugin. */
 'use strict';
+(() => {
 window.outboundAttempts = 0;
 window.fetch = () => {window.outboundAttempts++; throw new Error('Network forbidden in runtime test');};
 window.XMLHttpRequest = class {constructor() {window.outboundAttempts++; throw new Error('Network forbidden');}};
@@ -86,3 +87,4 @@ for (const name of ['other', 'other-tab']) document.getElementById(name).addEven
   document.getElementById('other-tab').classList.add('active');
 });
 document.getElementById('dictionary-tab').addEventListener('click', selectDictionary);
+})();

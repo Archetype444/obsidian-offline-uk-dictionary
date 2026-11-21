@@ -72,7 +72,7 @@ python3 scripts/package.py
 
 `dist/` contains the complete install files. `artifacts/` contains the installable ZIP, a complete source ZIP, and their SHA-256 checksums. `scripts/build.js` checks the vendored dictionary checksum before embedding it. A clean build uses the committed dictionary data and does not download anything.
 
-The GitHub workflow verifies and packages each push. A tag matching `manifest.json`'s version publishes install files only after the automated checks and optional browser fixture succeed. The browser fixture's tooling is installed in an isolated CI test directory; it is not a plugin dependency.
+The GitHub workflow verifies and packages each push. A tag matching `manifest.json`'s version, or a main-branch commit whose message starts with `Release `, publishes that version's install files only after the automated checks and browser fixture succeed. Each release requires a new version; existing releases are never overwritten. The browser fixture's tooling is installed in an isolated CI test directory; it is not a plugin dependency.
 
 To regenerate the dictionary from the original source, install **PyYAML 6.0.3** in a separate build environment, obtain the exact upstream commit, then run:
 
